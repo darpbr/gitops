@@ -54,7 +54,7 @@ jobs:
       - name: Push GitHub
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secret.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           repository: darpbr/gitops
 
       # - name: Build and Push image to Dockerhub
