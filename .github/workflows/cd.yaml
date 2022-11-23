@@ -29,7 +29,33 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: darpbr/gitops:latest
+          repository: ${{ secrets.DOCKER_USERNAME }}/gitops
+          tags: ${{ github.sha }},latest
+          # tags: darpbr/gitops:latest
+      
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+        with:
+          kustomize-version: "3.6.1"
+      
+      - name: Update Kubernetes resources
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: |
+          cd k8s
+          kustomize edit set image goserver=$DOCKER_USERNAME/gitops:$GITHUB_SHA
+
+      - name: Commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Bump Docker version"
+      
+      - name: Push GitHub
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secret.GITHUB_TOKEN }}
+          repository: darpbr/gitops
 
       # - name: Build and Push image to Dockerhub
       #   uses: docker/buid-push-action@v3
