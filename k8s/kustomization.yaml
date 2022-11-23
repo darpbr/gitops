@@ -8,4 +8,4 @@ resources:
 images:
 - name: goserver
   newName: darpbr/gitops
-  newTag: a538971601420b09355a339c0c482e819ae1eab9
+  newTag: a698ebbe5ca80a520d2212253e91979c2c7770ff
