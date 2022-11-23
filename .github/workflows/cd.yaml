@@ -29,9 +29,9 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          repository: ${{ secrets.DOCKER_USERNAME }}/gitops
-          tags: ${{ github.sha }},latest
-          # tags: darpbr/gitops:latest
+          # repository: ${{ secrets.DOCKER_USERNAME }}/gitops
+          # tags: ${{ github.sha }},latest
+          tags: darpbr/gitops:latest
       
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
